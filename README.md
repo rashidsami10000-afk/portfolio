@@ -19,9 +19,15 @@ Open http://localhost:4321 in your browser.
 
 ## How to deploy
 
-1. Push the `portfolio` folder to a GitHub repository.
-2. Enable GitHub Pages in repository settings, using the `dist` folder as the source.
-3. Run `npm run build` to generate the static site in `dist/`.
-4. Push the `dist` folder contents to the `gh-pages` branch.
+### Option 1: GitHub Pages (free, public repo)
+1. Create a public GitHub repo named `portfolio`.
+2. Push this folder: `git push -u origin main`.
+3. In repo settings → Pages → Source: GitHub Actions.
+4. The workflow in `.github/workflows/deploy.yml` will build and deploy automatically on every push.
+5. Live URL: `https://rashidali.github.io/portfolio`.
 
-Alternatively, use Vercel or Netlify for automatic deployment.
+### Option 2: Vercel (free, private repo support)
+1. Create a private GitHub repo named `portfolio`.
+2. Push this folder: `git push -u origin main`.
+3. Go to vercel.com → New Project → import the repo → deploy.
+4. Live URL: `https://portfolio-<hash>.vercel.app`.
