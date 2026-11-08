@@ -1,0 +1,32 @@
+---
+// src/pages/projects/[slug].astro
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+export const getStaticPaths = async () => {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+  }));
+};
+const { slug } = Astro.params;
+const project = (await getCollection('projects')).find((p) => p.id === slug);
+---
+<Layout title={project.data.title} description={project.data.summary} />
+<article class="prose dark:prose-invert max-w-2xl mx-auto">
+  <h1 class="text-3xl font-bold mb-4">{project.data.title}</h1>
+  <p class="text-gray-600 dark:text-gray-400 mb-6">{project.data.summary}</p>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div>
+      <img src={project.data.image} alt={project.data.title} class="w-full h-48 object-cover rounded" />
+    </div>
+    <div>
+      <p><strong>Tech:</strong> {project.data.tech}</p>
+      <p><strong>Links:</strong></p>
+      <div class="flex flex-col space-y-2">
+        <a href={project.data.code} target="_blank" rel="noopener" class="text-indigo-600 hover:underline">Code</a>
+        <a href={project.data.demo} target="_blank" rel="noopener" class="text-blue-600 hover:underline">Demo</a>
+        <a href={project.data.paper} target="_blank" rel="noopener" class="text-green-600 hover:underline">Paper</a>
+      </div>
+    </div>
+  </div>
+</article>

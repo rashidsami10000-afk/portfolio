@@ -1,0 +1,22 @@
+---
+// src/pages/about.astro
+import Layout from '../components/Layout.astro';
+export const frontmatter = {
+  title: "About Me",
+  description: "Short bio and background."
+};
+---
+<Layout title="About Me" description="Learn more about Rashid Ali, ML engineer and researcher.">
+  <section class="prose max-w-3xl mx-auto py-12">
+    <h1 class="text-3xl font-bold mb-4">About Me</h1>
+    <p class="text-lg mb-6">
+      I'm Rashid Ali, a passionate ML engineer and research enthusiast. I specialize in building scalable AI systems and exploring cutting‑edge algorithms.
+    </p>
+    <p class="text-lg mb-6">
+      My journey began with a love for programming in high school, continued through a Computer Science degree, and now I focus on bridging research breakthroughs with production‑ready applications.
+    </p>
+    <p class="text-lg mb-6">
+      When I'm not coding, you can find me contributing to open‑source projects, reading research papers, or mentoring junior developers.
+    </p>
+  </section>
+</Layout>

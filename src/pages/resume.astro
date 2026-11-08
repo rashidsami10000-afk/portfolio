@@ -1,0 +1,21 @@
+---
+// src/pages/resume.astro
+import Layout from '../components/Layout.astro';
+export const frontmatter = {
+  title: "Resume",
+  description: "Download my resume PDF"
+};
+---
+<Layout title="Resume" description="Download Rashid Ali's resume.">
+  <section class="prose max-w-3xl mx-auto py-12">
+    <h1 class="text-3xl font-bold mb-4">Resume</h1>
+    <p class="text-lg mb-6">
+      <a href="/assets/resume.pdf" download class="text-indigo-600 hover:underline">
+        Download Resume (PDF)
+      </a>
+    </p>
+    <p class="text-sm text-gray-500 dark:text-gray-400">
+      (PDF coming soon – you can add your own PDF file here.)
+    </p>
+  </section>
+</Layout>
