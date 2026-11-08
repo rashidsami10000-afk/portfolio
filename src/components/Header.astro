@@ -1,20 +1,39 @@
 ---
 // src/components/Header.astro
+import { withBase } from '../utils/paths';
+
+const links = [
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+  { href: '/resume', label: 'Resume' },
+  { href: '/contact', label: 'Contact' },
+];
 ---
-<header class="sticky top-0 bg-white dark:bg-gray-800 shadow-md">
-  <nav class="container mx-auto flex justify-between items-center py-4">
-    <a href="/" class="text-gray-800 dark:text-gray-200 font-semibold text-xl">
+<header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md">
+  <nav class="container mx-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3" aria-label="Main">
+    <a href={withBase('/')} class="text-gray-800 dark:text-gray-200 font-semibold text-lg sm:text-xl">
       Rashid Ali
     </a>
-    <ul class="flex space-x-6">
-      <li><a href="/projects" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-gray-100">Projects</a></li>
-      <li><a href="/about" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-gray-100">About</a></li>
-      <li><a href="/resume" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-gray-100">Resume</a></li>
-      <li><a href="/contact" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-gray-100">Contact</a></li>
+    <ul class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm sm:gap-x-6 sm:text-base">
+      {links.map((link) => (
+        <li>
+          <a
+            href={withBase(link.href)}
+            class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white underline-offset-4 hover:underline"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
       <li>
-        <button id="theme-toggle" class="text-gray-600 dark:text-gray-300" aria-label="Toggle dark mode">
-          <span class="hidden dark:block">☀️</span>
-          <span class="block dark:hidden">🌙</span>
+        <button
+          id="theme-toggle"
+          type="button"
+          class="rounded p-1 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+          aria-label="Toggle dark mode"
+        >
+          <span class="hidden dark:block" aria-hidden="true">☀️</span>
+          <span class="block dark:hidden" aria-hidden="true">🌙</span>
         </button>
       </li>
     </ul>
@@ -22,13 +41,18 @@
 </header>
 <script>
   const toggle = document.getElementById('theme-toggle');
-  toggle.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-  });
-  // Initialize theme
-  const saved = localStorage.getItem('theme');
-  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
+  const root = document.documentElement;
+
+  function syncLabel() {
+    const isDark = root.classList.contains('dark');
+    toggle?.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
   }
+
+  toggle?.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    syncLabel();
+  });
+
+  syncLabel();
 </script>

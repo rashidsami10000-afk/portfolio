@@ -1,22 +1,25 @@
 ---
 // src/pages/about.astro
 import Layout from '../components/Layout.astro';
-export const frontmatter = {
-  title: "About Me",
-  description: "Short bio and background."
-};
 ---
-<Layout title="About Me" description="Learn more about Rashid Ali, ML engineer and researcher.">
-  <section class="prose max-w-3xl mx-auto py-12">
-    <h1 class="text-3xl font-bold mb-4">About Me</h1>
+<Layout title="About — Rashid Ali" description="About Rashid Ali, ML engineer and researcher.">
+  <section class="max-w-3xl mx-auto py-8">
+    <h1 class="text-3xl md:text-4xl font-bold mb-6">About me</h1>
     <p class="text-lg mb-6">
-      I'm Rashid Ali, a passionate ML engineer and research enthusiast. I specialize in building scalable AI systems and exploring cutting‑edge algorithms.
+      I'm Rashid Ali, an ML engineer and researcher. I build scalable AI systems and
+      explore new algorithms, with a focus on turning research ideas into working software.
     </p>
     <p class="text-lg mb-6">
-      My journey began with a love for programming in high school, continued through a Computer Science degree, and now I focus on bridging research breakthroughs with production‑ready applications.
+      My path started with programming, continued through a computer science degree, and now
+      centres on connecting research breakthroughs with production-ready applications.
     </p>
     <p class="text-lg mb-6">
-      When I'm not coding, you can find me contributing to open‑source projects, reading research papers, or mentoring junior developers.
+      Outside of work I contribute to open-source projects, read research papers, and help
+      newer developers get started.
+    </p>
+    <p class="text-sm text-gray-600 dark:text-gray-400">
+      This bio is a placeholder — replace it with your own story in
+      <code>src/pages/about.astro</code>.
     </p>
   </section>
 </Layout>

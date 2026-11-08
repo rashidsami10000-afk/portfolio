@@ -1,0 +1,24 @@
+---
+// src/pages/projects/index.astro
+import Layout from '../../components/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+---
+<Layout
+  title="Projects — Rashid Ali"
+  description="Selected machine learning and engineering projects by Rashid Ali."
+>
+  <section aria-labelledby="projects-heading">
+    <h1 id="projects-heading" class="text-3xl md:text-4xl font-bold mb-2">Projects</h1>
+    <p class="text-gray-700 dark:text-gray-300 mb-8 max-w-2xl">
+      A selection of projects spanning machine learning, data pipelines, and applied research.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+</Layout>

@@ -1,31 +1,31 @@
 ---
 // src/pages/contact.astro
 import Layout from '../components/Layout.astro';
-export const frontmatter = {
-  title: "Contact",
-  description: "Ways to get in touch"
-};
 ---
-<Layout title="Contact" description="Contact Rashid Ali via email, GitHub, or LinkedIn.">
-  <section class="prose max-w-3xl mx-auto py-12">
-    <h1 class="text-3xl font-bold mb-4">Contact Me</h1>
-    <p class="text-lg mb-6">
-      You can reach me via email, GitHub, or LinkedIn.
+<Layout title="Contact — Rashid Ali" description="Contact Rashid Ali via email, GitHub, or LinkedIn.">
+  <section class="max-w-3xl mx-auto py-8">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4">Contact</h1>
+    <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">
+      The best ways to reach me:
     </p>
-    <ul class="flex flex-col space-y-4">
+    <ul class="flex flex-col gap-3 text-lg">
       <li>
-        <a href="mailto:rashid.ali@example.com" class="text-indigo-600 hover:underline">
+        <span class="font-semibold">Email:</span>
+        <a href="mailto:rashid.ali@example.com" class="text-indigo-700 dark:text-indigo-300 underline-offset-4 hover:underline">
           rashid.ali@example.com
         </a>
+        <span class="text-sm text-gray-600 dark:text-gray-400">(placeholder)</span>
       </li>
       <li>
-        <a href="https://github.com/rashidsami10000" target="_blank" rel="noopener" class="text-indigo-600 hover:underline">
-          GitHub
+        <span class="font-semibold">GitHub:</span>
+        <a href="https://github.com/rashidsami10000-afk" target="_blank" rel="noopener noreferrer" class="text-indigo-700 dark:text-indigo-300 underline-offset-4 hover:underline">
+          rashidsami10000-afk
         </a>
       </li>
       <li>
-        <a href="https://www.linkedin.com/in/rashid-ali-9445903a1/" target="_blank" rel="noopener" class="text-indigo-600 hover:underline">
-          LinkedIn
+        <span class="font-semibold">LinkedIn:</span>
+        <a href="https://www.linkedin.com/in/rashid-ali-9445903a1/" target="_blank" rel="noopener noreferrer" class="text-indigo-700 dark:text-indigo-300 underline-offset-4 hover:underline">
+          Rashid Ali
         </a>
       </li>
     </ul>

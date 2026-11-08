@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://rashidali.github.io/portfolio/sitemap.xml
+
+Sitemap: https://rashidsami10000-afk.github.io/portfolio/sitemap-index.xml
