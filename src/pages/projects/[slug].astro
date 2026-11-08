@@ -29,10 +29,25 @@ const { project } = Astro.props;
     <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">{project.data.summary}</p>
 
     <img
-      src={project.data.image}
-      alt={`Preview image for ${project.data.title}`}
-      class="w-full max-h-80 object-cover rounded-lg mb-8"
+      src={withBase(project.data.image)}
+      alt={project.data.imageAlt ?? `Preview image for ${project.data.title}`}
+      width="1200"
+      height="675"
+      class="w-full h-auto aspect-video object-cover rounded-lg mb-2"
     />
+    {project.data.imageCredit && (
+      <p class="text-xs text-gray-600 dark:text-gray-400 mb-8">
+        Photo by{' '}
+        {project.data.imageCreditUrl ? (
+          <a href={project.data.imageCreditUrl} target="_blank" rel="noopener noreferrer" class="underline underline-offset-2">
+            {project.data.imageCredit}
+          </a>
+        ) : (
+          project.data.imageCredit
+        )}{' '}
+        on Unsplash
+      </p>
+    )}
 
     <h2 class="text-xl font-semibold mb-2">Tech stack</h2>
     <p class="mb-8 text-gray-800 dark:text-gray-200">{project.data.tech}</p>

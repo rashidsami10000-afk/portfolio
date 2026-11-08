@@ -23,7 +23,8 @@ npm run preview
 
 ## How to edit content
 
-- **Add a project**: create a new `.md` file in `src/content/projects/`. Required frontmatter: `title`, `summary`, `tech`, `image`, `code`, `demo`, `paper`, `slug`. The file name becomes the URL (`spam-filter.md` → `/portfolio/projects/spam-filter/`).
+- **Add a project**: create a new `.md` file in `src/content/projects/`. Required frontmatter: `title`, `summary`, `tech`, `image`, `code`, `demo`, `paper`, `slug` — plus optional `imageAlt`, `imageCredit`, `imageCreditUrl`. The file name becomes the URL (`spam-filter.md` → `/portfolio/projects/spam-filter/`).
+- **Project images**: stored in `public/images/projects/` and referenced as `/images/projects/<name>.jpg`. The current images are free-to-use Unsplash photos, credited on each project page.
 - **Change the bio**: edit `src/pages/about.astro`.
 - **Swap the resume**: replace `public/assets/resume.pdf` with your own PDF (keep the same file name).
 - **Contact details**: edit `src/pages/contact.astro`.
@@ -66,7 +67,7 @@ it can be ignored.
 
 ## Remaining placeholders
 
-- Project images (currently Unsplash URLs) and project code/demo/paper links.
+- Project code/demo/paper links.
 - `public/assets/resume.pdf` is a placeholder PDF.
 - `rashid.ali@example.com` in `src/pages/contact.astro`.
 - About bio and skills list.
