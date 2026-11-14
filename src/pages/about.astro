@@ -3,6 +3,8 @@
 import Layout from '../components/Layout.astro';
 import MicroLabel from '../components/MicroLabel.astro';
 import { withBase } from '../utils/paths';
+import { Image } from 'astro:assets';
+import portrait from '../assets/rashid-portrait.jpg';
 
 const disciplines = [
   { name: 'Machine learning', detail: 'Models, training, evaluation' },
@@ -37,6 +39,20 @@ const disciplines = [
     <div class="shell split">
       <div>
         <MicroLabel text="Profile" />
+
+        <figure class="profile-portrait">
+          <div class="media-frame profile-portrait__frame">
+            <Image
+              src={portrait}
+              alt="Portrait of Rashid Ali"
+              widths={[320, 480, 640, 720]}
+              sizes="(min-width: 900px) 20rem, 80vw"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption class="profile-caption">Rashid Ali / 2026</figcaption>
+        </figure>
       </div>
 
       <div>

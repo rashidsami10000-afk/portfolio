@@ -124,6 +124,8 @@ Do not commit that pin — the repository itself stays on Astro 7.
 - **Homepage copy:** `src/pages/index.astro` (headline, approach statement, services,
   stack marquee, about teaser).
 - **Change the bio:** `src/pages/about.astro`.
+- **Portrait:** replace `src/assets/rashid-portrait.jpg` (4:5 portrait works best; the
+  About page crops it with `object-position` and applies a warm monochrome treatment).
 - **Swap the resume:** replace `public/assets/resume.pdf` with your own PDF (keep the
   same file name).
 - **Contact details:** `src/pages/contact.astro` and the email/GitHub/LinkedIn
