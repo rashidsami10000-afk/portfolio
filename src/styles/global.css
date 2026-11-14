@@ -1584,11 +1584,3 @@ html.menu-open .header-pill {
   object-position: 50% 58%;
   filter: grayscale(1) sepia(0.16) contrast(1.05);
 }
-
-.profile-caption {
-  margin-top: 0.65rem;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.05em;
-  opacity: 0.72;
-}
