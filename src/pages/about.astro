@@ -5,12 +5,13 @@ import MicroLabel from '../components/MicroLabel.astro';
 import { withBase } from '../utils/paths';
 import { Image } from 'astro:assets';
 import portrait from '../assets/rashid-portrait.jpg';
+import { skillGroups } from '../data/skills';
 
 const disciplines = [
   { name: 'Machine learning', detail: 'Models, training, evaluation' },
   { name: 'Data engineering', detail: 'Pipelines, streaming, storage' },
   { name: 'Applied research', detail: 'Experiments into software' },
-  { name: 'Web development', detail: 'Interfaces and dashboards' },
+  { name: 'Web design & development', detail: 'UI, layout, responsive front-end' },
 ];
 ---
 <Layout title="About — Rashid Ali" description="About Rashid Ali, ML engineer and researcher.">
@@ -107,6 +108,25 @@ const disciplines = [
             <li>
               <span>{item.name}</span>
               <span>{item.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="toolkit-heading">
+    <div class="shell split">
+      <div>
+        <h2 id="toolkit-heading" class="mono" style="font-weight:400">Toolkit</h2>
+      </div>
+
+      <div>
+        <ul class="stack-list" data-reveal>
+          {skillGroups.map((group) => (
+            <li>
+              <span>{group.label}</span>
+              <span>{group.value}</span>
             </li>
           ))}
         </ul>

@@ -7,6 +7,7 @@ import Marquee from '../components/Marquee.astro';
 import { getCollection } from 'astro:content';
 import { withBase } from '../utils/paths';
 import { splitWords } from '../utils/text';
+import { stack } from '../data/skills';
 
 const projects = await getCollection('projects');
 const featured = projects.slice(0, 3);
@@ -27,30 +28,15 @@ const services = [
     description: 'Reading papers, running experiments and turning findings into software people can use.',
   },
   {
-    title: 'Web',
-    description: 'Interfaces and dashboards that make models usable by people who are not engineers.',
+    title: 'Web design & development',
+    description: 'Layout, typography and responsive interfaces — from design through front-end build.',
   },
-];
-
-const stack = [
-  'Python',
-  'PyTorch',
-  'scikit-learn',
-  'FastAPI',
-  'Kafka',
-  'Spark',
-  'Docker',
-  'PostgreSQL',
-  'TypeScript',
-  'React',
-  'Astro',
-  'Linux',
 ];
 
 const facts = [
   { value: '03', label: 'Case studies' },
   { value: '04', label: 'Disciplines' },
-  { value: '12', label: 'Technologies' },
+  { value: '15', label: 'Technologies' },
   { value: '01', label: 'Goal: ship it' },
 ];
 ---

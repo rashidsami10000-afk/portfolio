@@ -126,6 +126,8 @@ Do not commit that pin — the repository itself stays on Astro 7.
 - **Change the bio:** `src/pages/about.astro`.
 - **Portrait:** replace `src/assets/rashid-portrait.jpg` (4:5 portrait works best; the
   About page crops it with `object-position` and applies a warm monochrome treatment).
+- **Skills and stack:** `src/data/skills.ts` drives the About Toolkit, the Resume
+  “Technical skills” section, and the homepage stack marquee.
 - **Swap the resume:** replace `public/assets/resume.pdf` with your own PDF (keep the
   same file name).
 - **Contact details:** `src/pages/contact.astro` and the email/GitHub/LinkedIn
@@ -174,5 +176,4 @@ can be ignored.
 
 - Project code/demo/paper links (`*.rashid.dev` demo URLs are samples).
 - `public/assets/resume.pdf` is a placeholder PDF.
-- About bio and disciplines lists.
 - `public/og-image.svg` social preview image.

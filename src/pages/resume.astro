@@ -3,12 +3,13 @@
 import Layout from '../components/Layout.astro';
 import MicroLabel from '../components/MicroLabel.astro';
 import { withBase } from '../utils/paths';
+import { skillGroups } from '../data/skills';
 
 const snapshot = [
   { label: 'Education', value: 'BS Artificial Intelligence (in progress)' },
   { label: 'Focus', value: 'Machine learning' },
-  { label: 'Disciplines', value: 'ML, data, research, web' },
-  { label: 'Tools', value: 'Python, PyTorch, Kafka, FastAPI' },
+  { label: 'Disciplines', value: 'ML, data, research, web design & dev' },
+  { label: 'Tools', value: 'Python, C++, PyTorch, Kafka, FastAPI' },
   { label: 'Format', value: 'PDF' },
 ];
 ---
@@ -45,6 +46,25 @@ const snapshot = [
             <li>
               <span>{item.label}</span>
               <span>{item.value}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="skills-heading">
+    <div class="shell split">
+      <div>
+        <h2 id="skills-heading" class="mono" style="font-weight:400">Technical skills</h2>
+      </div>
+
+      <div>
+        <ul class="stack-list" data-reveal>
+          {skillGroups.map((group) => (
+            <li>
+              <span>{group.label}</span>
+              <span>{group.value}</span>
             </li>
           ))}
         </ul>
