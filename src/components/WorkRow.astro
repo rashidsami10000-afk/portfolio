@@ -1,0 +1,30 @@
+---
+// src/components/WorkRow.astro
+import { withBase } from '../utils/paths';
+
+interface Props {
+  project: any;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
+const href = withBase(`/projects/${project.id}`);
+const image = withBase(project.data.image);
+---
+<a class="work-row" href={href} data-work-row data-preview={image}>
+  <span class="work-row__index">{number}</span>
+  <span class="work-row__title">{project.data.title}</span>
+  <span class="work-row__tech">{project.data.tech}</span>
+  <span class="work-row__arrow" aria-hidden="true">&#8599;</span>
+  <img
+    class="work-row__thumb"
+    src={image}
+    alt=""
+    width="800"
+    height="500"
+    loading="lazy"
+    decoding="async"
+    aria-hidden="true"
+  />
+</a>

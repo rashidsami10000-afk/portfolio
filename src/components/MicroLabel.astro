@@ -1,0 +1,14 @@
+---
+// src/components/MicroLabel.astro
+interface Props {
+  text: string;
+  className?: string;
+}
+
+const { text, className = '' } = Astro.props;
+---
+<span class:list={['label', className]}>
+  <span class="label__bracket" aria-hidden="true">[</span>
+  {text}
+  <span class="label__bracket" aria-hidden="true">]</span>
+</span>

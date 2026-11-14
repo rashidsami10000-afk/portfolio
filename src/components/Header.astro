@@ -3,56 +3,68 @@
 import { withBase } from '../utils/paths';
 
 const links = [
-  { href: '/projects', label: 'Projects' },
+  { href: '/projects', label: 'Work' },
   { href: '/about', label: 'About' },
   { href: '/resume', label: 'Resume' },
   { href: '/contact', label: 'Contact' },
 ];
+
+const email = 'rashid.ali@example.com';
+const github = 'https://github.com/rashidsami10000-afk';
+const linkedin = 'https://www.linkedin.com/in/rashid-ali-9445903a1/';
 ---
-<header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md">
-  <nav class="container mx-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3" aria-label="Main">
-    <a href={withBase('/')} class="text-gray-800 dark:text-gray-200 font-semibold text-lg sm:text-xl">
-      Rashid Ali
+<div class="scroll-progress" data-progress aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="header-pill">
+    <a class="logo" href={withBase('/')} aria-label="Rashid Ali — home">
+      <span class="logo__mark" aria-hidden="true">
+        <i></i><i></i><i></i>
+        <i></i><i></i><i></i>
+        <i></i><i></i><i></i>
+      </span>
+      <span class="logo__name">Rashid Ali</span>
     </a>
-    <ul class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm sm:gap-x-6 sm:text-base">
-      {links.map((link) => (
-        <li>
-          <a
-            href={withBase(link.href)}
-            class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white underline-offset-4 hover:underline"
-          >
-            {link.label}
+
+    <span class="status">
+      <span class="status__dot" aria-hidden="true"></span>
+      Open to work
+    </span>
+
+    <button
+      class="menu-btn"
+      type="button"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="site-menu"
+      aria-label="Open menu"
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="site-menu" data-menu data-open="false" aria-hidden="true" inert>
+  <nav aria-label="Site menu">
+    <ul class="menu__list">
+      {links.map((link, i) => (
+        <li class="menu__item" style={`--i:${i}`}>
+          <a class="menu__link" href={withBase(link.href)} data-menu-link>
+            <span>{link.label}</span>
+            <span class="menu__index">0{i + 1}</span>
           </a>
         </li>
       ))}
-      <li>
-        <button
-          id="theme-toggle"
-          type="button"
-          class="rounded p-1 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-          aria-label="Toggle dark mode"
-        >
-          <span class="hidden dark:block" aria-hidden="true">☀️</span>
-          <span class="block dark:hidden" aria-hidden="true">🌙</span>
-        </button>
-      </li>
     </ul>
   </nav>
-</header>
-<script>
-  const toggle = document.getElementById('theme-toggle');
-  const root = document.documentElement;
 
-  function syncLabel() {
-    const isDark = root.classList.contains('dark');
-    toggle?.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-  }
-
-  toggle?.addEventListener('click', () => {
-    root.classList.toggle('dark');
-    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
-    syncLabel();
-  });
-
-  syncLabel();
-</script>
+  <div class="menu__meta mono">
+    <a href={`mailto:${email}`}>{email}</a>
+    <span>
+      <a href={github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      {' / '}
+      <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </span>
+  </div>
+</div>

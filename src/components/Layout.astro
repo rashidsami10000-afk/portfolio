@@ -1,7 +1,7 @@
 ---
 // src/components/Layout.astro
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
 import '../styles/global.css';
 import { withBase } from '../utils/paths';
 
@@ -10,18 +10,34 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = 'ML engineer and research profile' } = Astro.props;
+const { title, description = 'Portfolio of Rashid Ali, an ML engineer and researcher building practical, research-informed AI systems.' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(withBase('/og-image.svg'), Astro.site).href;
 ---
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#1a1c1c" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link
+      rel="preload"
+      href={withBase('/fonts/inter-tight-latin.woff2')}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={withBase('/fonts/jetbrains-mono-latin.woff2')}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -31,24 +47,187 @@ const ogImage = new URL(withBase('/og-image.svg'), Astro.site).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <script is:inline>
-      // Apply the saved theme before first paint to avoid a flash of the wrong theme.
-      (function () {
-        try {
-          var saved = localStorage.getItem('theme');
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (saved === 'dark' || (!saved && prefersDark)) {
-            document.documentElement.classList.add('dark');
-          }
-        } catch (e) {}
-      })();
+      document.documentElement.classList.add('js');
     </script>
   </head>
-  <body class="antialiased text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-gray-100 transition-colors">
+  <body>
     <a href="#main" class="skip-link">Skip to main content</a>
     <Header />
-    <main id="main" class="container mx-auto px-4 py-8">
+    <main id="main">
       <slot />
     </main>
     <Footer />
+
+    <div class="cursor-preview" data-cursor-preview aria-hidden="true">
+      <div class="cursor-preview__inner">
+        <img
+          data-cursor-image
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          alt=""
+          width="600"
+          height="450"
+        />
+        <span class="cursor-preview__tag">View case</span>
+      </div>
+    </div>
+
+    <script>
+      const doc = document.documentElement;
+
+      /* ---------------------------------------------------------------- *
+       * Menu
+       * ---------------------------------------------------------------- */
+      const menu = document.querySelector<HTMLElement>('[data-menu]');
+      const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+      let menuOpen = false;
+      let lastFocused: HTMLElement | null = null;
+
+      function setMenu(open: boolean) {
+        if (!menu || !menuToggle) return;
+        menuOpen = open;
+        doc.classList.toggle('menu-open', open);
+        menu.dataset.open = String(open);
+        menu.setAttribute('aria-hidden', String(!open));
+        menu.inert = !open;
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+
+        if (open) {
+          lastFocused = document.activeElement as HTMLElement | null;
+          window.setTimeout(() => menu.querySelector<HTMLElement>('a')?.focus(), 220);
+        } else {
+          lastFocused?.focus();
+        }
+      }
+
+      menuToggle?.addEventListener('click', () => setMenu(!menuOpen));
+      menu?.querySelectorAll('[data-menu-link]').forEach((link) => {
+        link.addEventListener('click', () => setMenu(false));
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuOpen) setMenu(false);
+      });
+
+      /* ---------------------------------------------------------------- *
+       * Reveal on scroll
+       * ---------------------------------------------------------------- */
+      const revealEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-in');
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+        );
+        revealEls.forEach((el) => observer.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('is-in'));
+      }
+
+      /* ---------------------------------------------------------------- *
+       * Scroll progress
+       * ---------------------------------------------------------------- */
+      const progress = document.querySelector<HTMLElement>('[data-progress]');
+      let ticking = false;
+
+      function updateProgress() {
+        if (!progress) return;
+        const max = doc.scrollHeight - window.innerHeight;
+        const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        progress.style.transform = `scaleX(${ratio})`;
+        ticking = false;
+      }
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(updateProgress);
+        },
+        { passive: true }
+      );
+      updateProgress();
+
+      /* ---------------------------------------------------------------- *
+       * Cursor-follow case preview
+       * ---------------------------------------------------------------- */
+      const preview = document.querySelector<HTMLElement>('[data-cursor-preview]');
+      const previewImage = document.querySelector<HTMLImageElement>('[data-cursor-image]');
+      const canPreview =
+        window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+        window.matchMedia('(min-width: 1024px)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (preview && previewImage && canPreview) {
+        let targetX = 0;
+        let targetY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let frame: number | null = null;
+
+        const loop = () => {
+          currentX += (targetX - currentX) * 0.18;
+          currentY += (targetY - currentY) * 0.18;
+          preview.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+          frame = window.requestAnimationFrame(loop);
+        };
+
+        const start = () => {
+          if (frame !== null) return;
+          currentX = targetX;
+          currentY = targetY;
+          loop();
+        };
+
+        const stop = () => {
+          if (frame === null) return;
+          window.cancelAnimationFrame(frame);
+          frame = null;
+        };
+
+        document.querySelectorAll<HTMLElement>('[data-work-row]').forEach((row) => {
+          row.addEventListener('pointerenter', (event) => {
+            const src = row.dataset.preview;
+            if (src) previewImage.src = src;
+            targetX = currentX = event.clientX;
+            targetY = currentY = event.clientY;
+            preview.classList.add('is-visible');
+            start();
+          });
+
+          row.addEventListener('pointermove', (event) => {
+            targetX = event.clientX;
+            targetY = event.clientY;
+          });
+
+          row.addEventListener('pointerleave', () => {
+            preview.classList.remove('is-visible');
+            stop();
+          });
+        });
+      }
+
+      /* ---------------------------------------------------------------- *
+       * Local clock
+       * ---------------------------------------------------------------- */
+      const clock = document.querySelector<HTMLElement>('[data-clock]');
+      if (clock) {
+        const formatter = new Intl.DateTimeFormat(undefined, {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+        const tick = () => {
+          clock.textContent = formatter.format(new Date());
+        };
+        tick();
+        window.setInterval(tick, 15_000);
+      }
+    </script>
   </body>
 </html>

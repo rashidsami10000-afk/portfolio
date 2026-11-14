@@ -1,4 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#3b82f6"/>
-  <text x="50" y="50" font-size="40" text-anchor="middle" dominant-baseline="middle" fill="white">RA</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="10" fill="#1a1c1c"/>
+  <g fill="#f9f4eb">
+    <rect x="18" y="18" width="7" height="7" rx="1.5"/>
+    <rect x="28.5" y="18" width="7" height="7" rx="1.5"/>
+    <rect x="39" y="18" width="7" height="7" rx="1.5"/>
+    <rect x="18" y="28.5" width="7" height="7" rx="1.5"/>
+    <rect x="39" y="28.5" width="7" height="7" rx="1.5"/>
+    <rect x="18" y="39" width="7" height="7" rx="1.5"/>
+    <rect x="28.5" y="39" width="7" height="7" rx="1.5"/>
+    <rect x="39" y="39" width="7" height="7" rx="1.5"/>
+  </g>
+  <rect x="28.5" y="28.5" width="7" height="7" rx="1.5" fill="#e75d60"/>
 </svg>

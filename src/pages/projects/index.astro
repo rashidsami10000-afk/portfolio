@@ -1,24 +1,46 @@
 ---
 // src/pages/projects/index.astro
 import Layout from '../../components/Layout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import WorkRow from '../../components/WorkRow.astro';
+import MicroLabel from '../../components/MicroLabel.astro';
 import { getCollection } from 'astro:content';
+import { withBase } from '../../utils/paths';
 
 const projects = await getCollection('projects');
+const count = String(projects.length).padStart(2, '0');
 ---
 <Layout
-  title="Projects — Rashid Ali"
+  title="Work — Rashid Ali"
   description="Selected machine learning and engineering projects by Rashid Ali."
 >
-  <section aria-labelledby="projects-heading">
-    <h1 id="projects-heading" class="text-3xl md:text-4xl font-bold mb-2">Projects</h1>
-    <p class="text-gray-700 dark:text-gray-300 mb-8 max-w-2xl">
-      A selection of projects spanning machine learning, data pipelines, and applied research.
-    </p>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {projects.map((project) => (
-        <ProjectCard project={project} headingLevel="h2" />
-      ))}
+  <section class="page-hero page-hero--dark grain" style="position:relative;overflow:hidden">
+    <div class="hero__glow" style="top:72%;left:84%;opacity:.3" aria-hidden="true"></div>
+
+    <div class="shell" style="position:relative;z-index:2">
+      <div class="hero__top">
+        <MicroLabel text="Archive" />
+        <span class="mono muted">{count} projects</span>
+      </div>
+
+      <h1 class="display-1 page-hero__title" data-reveal>All work</h1>
+
+      <div class="page-hero__row" style="margin-top:var(--space-sm)">
+        <p class="lede" data-reveal>
+          A selection of projects spanning machine learning, data pipelines, and applied
+          research.
+        </p>
+        <a class="text-link" href={withBase('/contact')}>
+          Start a conversation <span aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Project list">
+    <div class="shell">
+      <div class="work-list" data-reveal>
+        {projects.map((project, i) => <WorkRow project={project} index={i} />)}
+      </div>
     </div>
   </section>
 </Layout>

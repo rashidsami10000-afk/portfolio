@@ -2,73 +2,97 @@
 // src/pages/projects/[slug].astro
 import { getCollection } from 'astro:content';
 import Layout from '../../components/Layout.astro';
+import MicroLabel from '../../components/MicroLabel.astro';
 import { withBase } from '../../utils/paths';
 
 export const getStaticPaths = async () => {
   const projects = await getCollection('projects');
-  return projects.map((project) => ({
+  return projects.map((project, i) => ({
     params: { slug: project.id },
-    props: { project },
+    props: { project, next: projects[(i + 1) % projects.length] },
   }));
 };
 
-const { project } = Astro.props;
+const { project, next } = Astro.props;
+const image = withBase(project.data.image);
+
+const links = [
+  { label: 'Source code', href: project.data.code },
+  { label: 'Live demo', href: project.data.demo },
+  { label: 'Paper', href: project.data.paper },
+];
 ---
-<Layout
-  title={`${project.data.title} — Rashid Ali`}
-  description={project.data.summary}
->
-  <article class="max-w-3xl mx-auto">
-    <p class="mb-6 text-sm">
-      <a href={withBase('/projects')} class="text-indigo-700 dark:text-indigo-300 underline-offset-4 hover:underline">
-        ← Back to projects
-      </a>
-    </p>
+<Layout title={`${project.data.title} — Rashid Ali`} description={project.data.summary}>
+  <section class="page-hero page-hero--dark grain" style="position:relative;overflow:hidden">
+    <div class="hero__glow" style="top:58%;left:80%;opacity:.24" aria-hidden="true"></div>
 
-    <h1 class="text-3xl md:text-4xl font-bold mb-3">{project.data.title}</h1>
-    <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">{project.data.summary}</p>
+    <div class="shell" style="position:relative;z-index:2">
+      <div class="hero__top">
+        <MicroLabel text="Case study" />
+        <a class="mono" href={withBase('/projects')} style="text-decoration:none;opacity:.7">
+          &#8592; All work
+        </a>
+      </div>
 
-    <img
-      src={withBase(project.data.image)}
-      alt={project.data.imageAlt ?? `Preview image for ${project.data.title}`}
-      width="1200"
-      height="675"
-      class="w-full h-auto aspect-video object-cover rounded-lg mb-2"
-    />
-    {project.data.imageCredit && (
-      <p class="text-xs text-gray-600 dark:text-gray-400 mb-8">
-        Photo by{' '}
-        {project.data.imageCreditUrl ? (
-          <a href={project.data.imageCreditUrl} target="_blank" rel="noopener noreferrer" class="underline underline-offset-2">
-            {project.data.imageCredit}
-          </a>
-        ) : (
-          project.data.imageCredit
-        )}{' '}
-        on Unsplash
+      <h1 class="display-1 case-title" data-reveal>{project.data.title}</h1>
+
+      <p class="lede" style="margin-top:var(--space-sm); --d:1" data-reveal>
+        {project.data.summary}
       </p>
-    )}
+    </div>
+  </section>
 
-    <h2 class="text-xl font-semibold mb-2">Tech stack</h2>
-    <p class="mb-8 text-gray-800 dark:text-gray-200">{project.data.tech}</p>
+  <section class="section" style="padding-top:0">
+    <div class="shell">
+      <figure class="case-media">
+        <img
+          src={image}
+          alt={project.data.imageAlt ?? `Preview image for ${project.data.title}`}
+          width="1600"
+          height="900"
+          loading="eager"
+          decoding="async"
+        />
+        {project.data.imageCredit && (
+          <figcaption class="case-credit">
+            Photo by{' '}
+            {project.data.imageCreditUrl ? (
+              <a href={project.data.imageCreditUrl} target="_blank" rel="noopener noreferrer">
+                {project.data.imageCredit}
+              </a>
+            ) : (
+              project.data.imageCredit
+            )}{' '}
+            on Unsplash
+          </figcaption>
+        )}
+      </figure>
 
-    <h2 class="text-xl font-semibold mb-2">Links</h2>
-    <ul class="flex flex-wrap gap-6">
-      <li>
-        <a href={project.data.code} target="_blank" rel="noopener noreferrer" class="text-indigo-700 dark:text-indigo-300 font-medium underline-offset-4 hover:underline">
-          Source code<span class="sr-only"> for {project.data.title}</span>
-        </a>
-      </li>
-      <li>
-        <a href={project.data.demo} target="_blank" rel="noopener noreferrer" class="text-blue-700 dark:text-blue-300 font-medium underline-offset-4 hover:underline">
-          Live demo<span class="sr-only"> of {project.data.title}</span>
-        </a>
-      </li>
-      <li>
-        <a href={project.data.paper} target="_blank" rel="noopener noreferrer" class="text-green-700 dark:text-green-300 font-medium underline-offset-4 hover:underline">
-          Paper<span class="sr-only"> about {project.data.title}</span>
-        </a>
-      </li>
-    </ul>
-  </article>
+      <div class="case-grid">
+        <div class="case-block">
+          <h2 class="case-block__title">Tech stack</h2>
+          <p class="copy">{project.data.tech}</p>
+        </div>
+
+        <div class="case-block">
+          <h2 class="case-block__title">Links</h2>
+          <ul class="case-links">
+            {links.map((link) => (
+              <li>
+                <a href={link.href} target="_blank" rel="noopener noreferrer">
+                  <span>{link.label}</span>
+                  <span aria-hidden="true">&#8599;</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <a class="next-project" href={withBase(`/projects/${next.id}`)}>
+        <MicroLabel text="Next project" />
+        <span class="next-project__title">{next.data.title}</span>
+      </a>
+    </div>
+  </section>
 </Layout>

@@ -1,8 +1,46 @@
 ---
 // src/components/Footer.astro
+import Marquee from './Marquee.astro';
+import MicroLabel from './MicroLabel.astro';
+import { withBase } from '../utils/paths';
+
+const email = 'rashid.ali@example.com';
+const github = 'https://github.com/rashidsami10000-afk';
+const linkedin = 'https://www.linkedin.com/in/rashid-ali-9445903a1/';
+const year = new Date().getFullYear();
 ---
-<footer class="bg-gray-800 text-gray-300 py-8">
-  <div class="container mx-auto px-4 text-center">
-    <p>© {new Date().getFullYear()} Rashid Ali. All rights reserved.</p>
+<footer class="site-footer" id="site-footer">
+  <div class="footer-marquee">
+    <Marquee items={["Let's talk"]} variant="display" outline duration={24} />
+  </div>
+
+  <div class="shell">
+    <div class="footer-cta">
+      <div>
+        <MicroLabel text="Get in touch" />
+        <p style="margin:1rem 0 0">
+          <a class="footer-email" href={`mailto:${email}`}>{email}</a>
+        </p>
+      </div>
+
+      <div>
+        <p class="copy" style="max-width:34ch">
+          Have a problem worth solving? I'm open to roles and collaborations in machine
+          learning, data engineering, and applied research.
+        </p>
+        <ul class="footer-links" style="margin-top:1.5rem">
+          <li><a href={github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href={withBase('/resume')}>Resume</a></li>
+          <li><a href={withBase('/contact')}>Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom mono">
+      <span>&copy; {year} Rashid Ali</span>
+      <span>Local time <span data-clock>--:--</span></span>
+      <a href="#main" style="text-decoration:none">Back to top &#8593;</a>
+    </div>
   </div>
 </footer>

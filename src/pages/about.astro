@@ -1,25 +1,107 @@
 ---
 // src/pages/about.astro
 import Layout from '../components/Layout.astro';
+import MicroLabel from '../components/MicroLabel.astro';
+import { withBase } from '../utils/paths';
+
+const disciplines = [
+  { name: 'Machine learning', detail: 'Models, training, evaluation' },
+  { name: 'Data engineering', detail: 'Pipelines, streaming, storage' },
+  { name: 'Applied research', detail: 'Experiments into software' },
+  { name: 'Web development', detail: 'Interfaces and dashboards' },
+];
 ---
 <Layout title="About — Rashid Ali" description="About Rashid Ali, ML engineer and researcher.">
-  <section class="max-w-3xl mx-auto py-8">
-    <h1 class="text-3xl md:text-4xl font-bold mb-6">About me</h1>
-    <p class="text-lg mb-6">
-      I'm Rashid Ali, an ML engineer and researcher. I build scalable AI systems and
-      explore new algorithms, with a focus on turning research ideas into working software.
-    </p>
-    <p class="text-lg mb-6">
-      My path started with programming, continued through a computer science degree, and now
-      centres on connecting research breakthroughs with production-ready applications.
-    </p>
-    <p class="text-lg mb-6">
-      Outside of work I contribute to open-source projects, read research papers, and help
-      newer developers get started.
-    </p>
-    <p class="text-sm text-gray-600 dark:text-gray-400">
-      This bio is a placeholder — replace it with your own story in
-      <code>src/pages/about.astro</code>.
-    </p>
+  <section class="page-hero">
+    <div class="shell">
+      <div class="hero__top">
+        <MicroLabel text="About" />
+        <span class="mono muted">Rashid Ali</span>
+      </div>
+
+      <h1 class="display-1 page-hero__title" data-reveal>Research that ships.</h1>
+
+      <div class="page-hero__row" style="margin-top:var(--space-sm)">
+        <p class="lede" data-reveal>
+          ML engineer and researcher building scalable AI systems — and the pipelines that
+          keep them honest.
+        </p>
+        <a class="text-link" href={withBase('/contact')}>
+          Work with me <span aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0" aria-labelledby="profile-heading">
+    <div class="shell split">
+      <div>
+        <MicroLabel text="Profile" />
+      </div>
+
+      <div>
+        <h2 id="profile-heading" class="statement" style="font-size:clamp(1.4rem,2.7vw,2.2rem)" data-reveal>
+          I connect research breakthroughs with production-ready applications.
+        </h2>
+
+        <div style="margin-top:2rem; --d:1" data-reveal>
+          <p class="copy">
+            I'm Rashid Ali, an ML engineer and researcher. I build scalable AI systems and
+            explore new algorithms, with a focus on turning research ideas into working
+            software.
+          </p>
+          <p class="copy">
+            My path started with programming, continued through a computer science degree,
+            and now centres on connecting research breakthroughs with production-ready
+            applications.
+          </p>
+          <p class="copy">
+            Outside of work I contribute to open-source projects, read research papers, and
+            help newer developers get started.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="focus-heading">
+    <div class="shell">
+      <div class="panel panel--lime" data-reveal>
+        <MicroLabel text="Current focus" />
+        <h2 id="focus-heading" class="display-3" style="max-width:26ch;margin-top:1rem">
+          Open to roles where models actually reach production.
+        </h2>
+        <p style="margin-top:1.5rem">
+          <a class="btn btn--solid" href={withBase('/contact')}>
+            Get in touch <span class="btn__arrow" aria-hidden="true">&#8594;</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="disciplines-heading">
+    <div class="shell split">
+      <div>
+        <h2 id="disciplines-heading" class="mono" style="font-weight:400">Disciplines</h2>
+      </div>
+
+      <div>
+        <ul class="stack-list" data-reveal>
+          {disciplines.map((item) => (
+            <li>
+              <span>{item.name}</span>
+              <span>{item.detail}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p style="margin-top:2rem">
+          <a class="text-link" href={withBase('/resume')}>
+            View resume <span aria-hidden="true">&#8594;</span>
+          </a>
+        </p>
+      </div>
+    </div>
   </section>
 </Layout>
