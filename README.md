@@ -170,7 +170,6 @@ can be ignored.
 
 ## Remaining placeholders
 
-- `rashid.ali@example.com` in `contact.astro`, `Header.astro`, and `Footer.astro`.
 - Project code/demo/paper links (`*.rashid.dev` demo URLs are samples).
 - `public/assets/resume.pdf` is a placeholder PDF.
 - About bio and disciplines lists.
