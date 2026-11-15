@@ -5,7 +5,7 @@
 export const contact = {
   name: 'Rashid Ali',
   headline: 'Artificial Intelligence Undergraduate',
-  specialty: 'Machine Learning · Data · Web Development',
+  specialty: 'Data Analysis · Machine Learning · Web Development',
   email: 'rashidsami10000@gmail.com',
   /** e.g. 'Lahore, Pakistan' — left empty, omitted from the resume */
   location: '',
@@ -17,10 +17,10 @@ export const contact = {
 };
 
 export const summary =
-  'Artificial Intelligence undergraduate who builds machine-learning systems end to end: ' +
-  'the models, the pipelines that feed them, and the interfaces people use to run them. ' +
-  'Works mainly in Python and C++, with project experience in scikit-learn, pandas, SQL, ' +
-  'and front-end development.';
+  'Artificial Intelligence undergraduate who cleans, analyses and models real data — profiling ' +
+  'messy exports, building analysis-ready panels, and shipping the interfaces people use. Works ' +
+  'mainly in Python and C++, with project experience in NumPy, pandas, Matplotlib, Seaborn, ' +
+  'scikit-learn and SQL.';
 
 export const education = [
   {
@@ -36,7 +36,7 @@ export const education = [
 export const projects = [
   {
     name: 'Refresh Opportunity Model — FlyRank',
-    tech: 'Python · pandas · scikit-learn',
+    tech: 'Python · pandas · NumPy · scikit-learn',
     points: [
       'Built a page-month panel of 101,441 pages from ~79M rows of production search data and ranked which pages need review first.',
       'Shipped a transparent hand rule at P@50 0.92 against a 0.48 base rate; it matched a cross-validated logistic regression (0.952 ± 0.033), so the simpler model went live.',

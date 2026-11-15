@@ -20,6 +20,10 @@ const services = [
     description: 'Model design, training, evaluation and deployment — from first experiment to production.',
   },
   {
+    title: 'Data cleaning & analysis',
+    description: 'Profiling messy exports, resolving joins and duplicates, and turning the result into a number and a chart you can defend.',
+  },
+  {
     title: 'Data pipelines',
     description: 'Streaming, storage, and the plumbing that keeps models fed with clean data.',
   },
@@ -35,8 +39,8 @@ const services = [
 
 const facts = [
   { value: '03', label: 'Case studies' },
-  { value: '04', label: 'Disciplines' },
-  { value: '15', label: 'Technologies' },
+  { value: '05', label: 'Disciplines' },
+  { value: '18', label: 'Technologies' },
   { value: '01', label: 'Goal: ship it' },
 ];
 ---
@@ -64,8 +68,8 @@ const facts = [
 
       <div class="hero__bottom">
         <p class="lede" data-reveal style="--d:3">
-          I build machine learning systems end to end — the models, the data pipelines
-          behind them, and the interfaces that make them usable.
+          I clean and analyse data, build the models on top of it, and ship the interfaces
+          that make them usable.
         </p>
         <div class="hero__actions" data-reveal style="--d:4">
           <a class="btn btn--light" href={withBase('/projects')}>
@@ -80,7 +84,7 @@ const facts = [
       <div class="hero__meta" data-reveal style="--d:5">
         <ul class="mono">
           <li>Machine learning</li>
-          <li>Data pipelines</li>
+          <li>Data analysis</li>
           <li>Web interfaces</li>
         </ul>
       </div>

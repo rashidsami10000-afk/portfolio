@@ -3,7 +3,7 @@ title: "Refresh Opportunity Model"
 summary: "A validated ranking system that tells an analyst which of 101,441 pages to review first — built on 79 million rows of production search data."
 year: "2026"
 role: "FlyRank ML internship · capstone"
-tech: "Python · pandas · scikit-learn"
+tech: "Python · pandas · NumPy · scikit-learn · Matplotlib"
 image: "/images/projects/flyrank-report.png"
 imageAlt: "The published capstone report, headed 'Which pages deserve review first?', with its abstract and table of contents."
 code: "https://github.com/rashidsami10000-afk/rashid-flyrank-internship-ml-owncopy"
@@ -25,6 +25,8 @@ FlyRank's content team decides which pages get human attention through hand-writ
 ## What I built
 
 I rebuilt one of those decisions on measured ground — the CTR-fix queue. About 79 million daily search-performance rows collapse into a page-month panel of 101,441 visible pages for March 2026, with the following month's outcome held back for evaluation only. The target: will this page under-capture its position tier's benchmark click-through rate next month?
+
+Most of the work was in that panel, not in the model. Daily rows were aggregated into page-months, and pages with no next-month outcome were dropped and counted rather than filled in. The two charts below are Matplotlib output from the evaluation data, not redrawn by hand.
 
 The scorer is a transparent hand rule — how far a page sits below its tier benchmark, weighted by visibility:
 
