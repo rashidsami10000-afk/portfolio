@@ -7,14 +7,12 @@ export const contact = {
   headline: 'Artificial Intelligence Undergraduate',
   specialty: 'Machine Learning · Data · Web Development',
   email: 'rashidsami10000@gmail.com',
-  /** e.g. 'Lahore, Pakistan' */
-  location: '',
+  location: 'Pakistan',
   /** e.g. '+92 300 1234567' */
   phone: '',
   github: 'rashidsami10000-afk',
   website: 'rashidsami10000-afk.github.io/portfolio',
-  /** e.g. 'in/rashid-ali' */
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/rashid-ali-9445903a1/',
 };
 
 export const summary =
@@ -25,8 +23,7 @@ export const summary =
 
 export const education = [
   {
-    /** Add your university — omitted until set. */
-    school: '',
+    school: 'University of Malakand',
     degree: 'BS Artificial Intelligence',
     period: 'In progress',
     detail: 'Focus on machine learning and applied AI',

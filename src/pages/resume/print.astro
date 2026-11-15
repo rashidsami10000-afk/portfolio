@@ -4,13 +4,18 @@
 import { contact, summary, education, projects, additional, updated } from '../../data/resume';
 import { skillGroups } from '../../data/skills';
 
-const links = [
+const linkedinLabel = contact.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+const primary = [
   contact.email && { label: contact.email, href: `mailto:${contact.email}` },
   contact.phone && { label: contact.phone, href: `tel:${contact.phone.replace(/[^\d+]/g, '')}` },
   contact.location && { label: contact.location },
-  contact.linkedin && { label: contact.linkedin, href: `https://www.linkedin.com/${contact.linkedin}` },
-  contact.github && { label: `github.com/${contact.github}`, href: `https://github.com/${contact.github}` },
   contact.website && { label: contact.website, href: `https://${contact.website}` },
+].filter(Boolean) as { label: string; href?: string }[];
+
+const profiles = [
+  contact.linkedin && { label: linkedinLabel, href: contact.linkedin },
+  contact.github && { label: `github.com/${contact.github}`, href: `https://github.com/${contact.github}` },
 ].filter(Boolean) as { label: string; href?: string }[];
 ---
 <!doctype html>
@@ -128,11 +133,17 @@ const links = [
         color: var(--muted);
       }
 
+      .contact-block {
+        display: grid;
+        gap: 2.5pt;
+        margin-top: 9pt;
+      }
+
       .contact {
         display: flex;
         flex-wrap: wrap;
         gap: 2pt 10pt;
-        margin: 9pt 0 0;
+        margin: 0;
         padding: 0;
         list-style: none;
         font-family: var(--mono);
@@ -143,6 +154,18 @@ const links = [
       .contact a {
         color: inherit;
         text-decoration: none;
+      }
+
+      /* Larger hit areas for the on-screen web version; print output is unchanged. */
+      @media screen {
+        .contact {
+          gap: 6pt 20pt;
+        }
+
+        .contact a {
+          display: inline-block;
+          padding: 5px 0;
+        }
       }
 
       /* ---------- sections ---------- */
@@ -297,13 +320,23 @@ const links = [
         <p class="headline">{contact.headline}</p>
         <p class="specialty">{contact.specialty}</p>
 
-        <ul class="contact">
-          {links.map((link) => (
-            <li>
-              {link.href ? <a href={link.href}>{link.label}</a> : link.label}
-            </li>
-          ))}
-        </ul>
+        <div class="contact-block">
+          <ul class="contact">
+            {primary.map((link) => (
+              <li>
+                {link.href ? <a href={link.href}>{link.label}</a> : link.label}
+              </li>
+            ))}
+          </ul>
+
+          <ul class="contact">
+            {profiles.map((link) => (
+              <li>
+                {link.href ? <a href={link.href}>{link.label}</a> : link.label}
+              </li>
+            ))}
+          </ul>
+        </div>
       </header>
 
       <section aria-labelledby="summary-heading">

@@ -180,5 +180,4 @@ can be ignored.
 
 - Project code/demo/paper links (`*.rashid.dev` demo URLs are samples).
 - `public/og-image.svg` social preview image.
-- Resume details still to fill in `src/data/resume.ts`: university name, location, phone,
-  LinkedIn.
+- Resume: only the phone number is still empty in `src/data/resume.ts` (optional).
