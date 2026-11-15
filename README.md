@@ -180,4 +180,5 @@ can be ignored.
 
 - Project code/demo/paper links (`*.rashid.dev` demo URLs are samples).
 - `public/og-image.svg` social preview image.
-- Resume: only the phone number is still empty in `src/data/resume.ts` (optional).
+- Resume: `phone` and `location` are left empty in `src/data/resume.ts` and are omitted
+  from the output.

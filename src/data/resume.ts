@@ -7,7 +7,8 @@ export const contact = {
   headline: 'Artificial Intelligence Undergraduate',
   specialty: 'Machine Learning · Data · Web Development',
   email: 'rashidsami10000@gmail.com',
-  location: 'Pakistan',
+  /** e.g. 'Lahore, Pakistan' — left empty, omitted from the resume */
+  location: '',
   /** e.g. '+92 300 1234567' */
   phone: '',
   github: 'rashidsami10000-afk',

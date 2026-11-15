@@ -160,11 +160,19 @@ const profiles = [
       @media screen {
         .contact {
           gap: 6pt 20pt;
+          align-items: center;
+        }
+
+        .contact li {
+          display: flex;
+          align-items: center;
         }
 
         .contact a {
-          display: inline-block;
-          padding: 5px 0;
+          display: inline-flex;
+          align-items: center;
+          min-height: 24px;
+          padding: 0 2px;
         }
       }
 
