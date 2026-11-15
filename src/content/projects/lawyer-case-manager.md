@@ -4,8 +4,8 @@ summary: "An offline-first Windows application that replaces a lawyer's paper no
 year: "2026"
 role: "Coursework · 4th semester project"
 tech: "C# · .NET 8 · WPF · SQLite"
-image: "/images/projects/lawyer-case-manager.png"
-imageAlt: "Diagram of the application's four SQLite tables — Clients, Cases, Documents and CaseNotes — with primary and foreign keys marked."
+image: "/images/projects/lawyer-case-manager.svg"
+imageAlt: "Animated diagram of the application's four SQLite tables — Clients, Cases, Documents and CaseNotes — with a marker moving through them as each table lights up."
 code: "https://github.com/rashidsami10000-afk/lawyers-case-management"
 slug: "lawyer-case-manager"
 ---
