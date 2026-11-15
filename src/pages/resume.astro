@@ -1,20 +1,28 @@
 ---
 // src/pages/resume.astro
+// Web version of the resume. Content comes from src/data/resume.ts, the same
+// source the PDF at /assets/resume.pdf is generated from, so they cannot drift.
 import Layout from '../components/Layout.astro';
 import MicroLabel from '../components/MicroLabel.astro';
 import { withBase } from '../utils/paths';
 import { skillGroups } from '../data/skills';
-import { updated } from '../data/resume';
+import { contact, summary, education, projects, additional, updated } from '../data/resume';
 
-const snapshot = [
-  { label: 'Education', value: 'BS Artificial Intelligence (in progress)' },
-  { label: 'Focus', value: 'Machine learning' },
-  { label: 'Disciplines', value: 'ML, data, research, web design & dev' },
-  { label: 'Tools', value: 'Python, C++, PyTorch, Kafka, FastAPI' },
-  { label: 'Format', value: 'PDF' },
-];
+const linkedinLabel = contact.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+const details = [
+  { label: contact.email, href: `mailto:${contact.email}` },
+  contact.phone && { label: contact.phone, href: `tel:${contact.phone.replace(/[^\d+]/g, '')}` },
+  contact.location && { label: contact.location, href: null },
+  contact.linkedin && { label: linkedinLabel, href: contact.linkedin },
+  contact.github && { label: `github.com/${contact.github}`, href: `https://github.com/${contact.github}` },
+  contact.website && { label: contact.website, href: `https://${contact.website}` },
+].filter(Boolean) as { label: string; href: string | null }[];
 ---
-<Layout title="Resume — Rashid Ali" description="View and download Rashid Ali's resume.">
+<Layout
+  title="Resume — Rashid Ali"
+  description="Resume of Rashid Ali, an Artificial Intelligence undergraduate building machine learning systems. Read it on the web or download the PDF."
+>
   <section class="page-hero">
     <div class="shell">
       <div class="hero__top">
@@ -22,45 +30,74 @@ const snapshot = [
         <span class="mono muted">Updated {updated}</span>
       </div>
 
-      <h1 class="display-1 page-hero__title" data-reveal>Rashid Ali</h1>
+      <h1 class="display-1 page-hero__title" data-reveal>{contact.name}</h1>
+
+      <p class="mono" style="margin-top:1.25rem" data-reveal>{contact.headline}</p>
+      <p class="mono muted" style="margin-top:0.45rem" data-reveal>{contact.specialty}</p>
 
       <div class="page-hero__row" style="margin-top:var(--space-sm)">
         <p class="lede" data-reveal>
-          Artificial Intelligence undergraduate building machine learning systems. The full
-          resume is available as a PDF.
+          Open to internships and junior roles in machine learning and data.
         </p>
         <div class="resume-actions">
           <a class="btn btn--solid" href={withBase('/assets/resume.pdf')} download>
             Download PDF <span class="btn__arrow" aria-hidden="true">&#8595;</span>
           </a>
           <a class="text-link" href={withBase('/resume/print/')}>
-            Web version <span aria-hidden="true">&#8599;</span>
+            Print view <span aria-hidden="true">&#8599;</span>
           </a>
         </div>
       </div>
+
+      <ul class="resume-contact" data-reveal>
+        {details.map((detail) => (
+          <li>
+            {detail.href ? <a href={detail.href}>{detail.label}</a> : detail.label}
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="section" style="padding-top:0" aria-labelledby="snapshot-heading">
+  <section class="section section--resume" style="padding-top:0" aria-labelledby="summary-heading">
     <div class="shell split">
       <div>
-        <h2 id="snapshot-heading" class="mono" style="font-weight:400">Snapshot</h2>
+        <h2 id="summary-heading" class="mono" style="font-weight:400">Summary</h2>
       </div>
 
       <div>
-        <ul class="stack-list" data-reveal>
-          {snapshot.map((item) => (
-            <li>
-              <span>{item.label}</span>
-              <span>{item.value}</span>
-            </li>
-          ))}
-        </ul>
+        <p class="copy" data-reveal>{summary}</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--tight" aria-labelledby="skills-heading">
+  <section class="section section--resume" aria-labelledby="education-heading">
+    <div class="shell split">
+      <div>
+        <h2 id="education-heading" class="mono" style="font-weight:400">Education</h2>
+      </div>
+
+      <div>
+        {education.map((item) => (
+          <article class="resume-entry" data-reveal>
+            <div class="resume-entry__head">
+              <h3 class="resume-entry__title">{item.degree}</h3>
+              {item.period && <span class="mono muted">{item.period}</span>}
+            </div>
+            {item.school && <p class="resume-entry__sub">{item.school}</p>}
+            {item.detail && <p class="copy" style="margin-top:0.75rem">{item.detail}</p>}
+            {item.coursework && (
+              <p class="copy" style="margin-top:0.5rem;opacity:0.72">
+                Coursework: {item.coursework}
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--resume" aria-labelledby="skills-heading">
     <div class="shell split">
       <div>
         <h2 id="skills-heading" class="mono" style="font-weight:400">Technical skills</h2>
@@ -73,6 +110,46 @@ const snapshot = [
               <span>{group.label}</span>
               <span>{group.value}</span>
             </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--resume" aria-labelledby="projects-heading">
+    <div class="shell split">
+      <div>
+        <h2 id="projects-heading" class="mono" style="font-weight:400">Selected projects</h2>
+      </div>
+
+      <div>
+        {projects.map((project) => (
+          <article class="resume-entry" data-reveal>
+            <div class="resume-entry__head">
+              <h3 class="resume-entry__title">{project.name}</h3>
+              <span class="mono muted">{project.tech}</span>
+            </div>
+            <ul class="resume-points">
+              {project.points.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--resume" aria-labelledby="additional-heading">
+    <div class="shell split">
+      <div>
+        <h2 id="additional-heading" class="mono" style="font-weight:400">Additional</h2>
+      </div>
+
+      <div>
+        <ul class="resume-points" data-reveal>
+          {additional.map((item) => (
+            <li>{item}</li>
           ))}
         </ul>
 

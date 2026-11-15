@@ -130,7 +130,8 @@ Do not commit that pin — the repository itself stays on Astro 7.
 - **Skills and stack:** `src/data/skills.ts` drives the About Toolkit, the Resume
   “Technical skills” section, and the homepage stack marquee.
 - **Resume content:** `src/data/resume.ts` (contact, summary, education, projects,
-  extras). It renders at `/resume/print/` and is also the source for the PDF.
+  extras). It renders as the web page at `/resume/`, as the print sheet at
+  `/resume/print/`, and as the PDF.
 - **Regenerate the resume PDF:** `npm run resume` builds the site, prints
   `/resume/print/` with headless Edge/Chrome, and writes `public/assets/resume.pdf`.
   Commit the PDF — GitHub Actions only runs `astro build`. Set `CHROME_PATH` if the

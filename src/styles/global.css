@@ -1328,6 +1328,87 @@ html.menu-open .header-pill {
 }
 
 /* ------------------------------------------------------------------ *
+ *  Web resume
+ * ------------------------------------------------------------------ */
+.section--resume {
+  padding-block: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.6rem;
+  margin: var(--space-2xs) 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.resume-contact a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  padding-bottom: 0.15rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.resume-contact a:hover {
+  color: var(--color-red);
+  border-color: currentColor;
+}
+
+.resume-entry + .resume-entry {
+  margin-top: var(--space-2xs);
+}
+
+.resume-entry__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1.5rem;
+}
+
+.resume-entry__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.resume-entry__sub {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+  opacity: 0.72;
+}
+
+.resume-points {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  max-width: 62ch;
+  list-style: none;
+}
+
+.resume-points li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.resume-points li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  opacity: 0.45;
+}
+
+/* ------------------------------------------------------------------ *
  *  Project detail
  * ------------------------------------------------------------------ */
 .case-title {
