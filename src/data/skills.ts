@@ -7,27 +7,27 @@ export interface SkillGroup {
 }
 
 export const skillGroups: SkillGroup[] = [
-  { label: 'Languages', value: 'C++, Python, SQL, TypeScript' },
+  { label: 'Languages', value: 'C++, C#, Python, SQL, TypeScript' },
   { label: 'CS foundations', value: 'Data structures, algorithms, OOP, programming fundamentals' },
   { label: 'Databases', value: 'Relational modeling, SQL, schema design' },
   { label: 'Web design', value: 'Layout, typography, responsive UI' },
-  { label: 'Web development', value: 'HTML, CSS, React, Astro' },
+  { label: 'Web development', value: 'HTML, CSS, Astro, Tailwind CSS' },
 ];
 
 export const stack: string[] = [
   'C++',
+  'C#',
   'Python',
   'SQL',
   'TypeScript',
-  'PyTorch',
   'scikit-learn',
-  'FastAPI',
-  'Kafka',
-  'Spark',
-  'PostgreSQL',
+  'pandas',
+  'Jupyter',
+  '.NET',
+  'WPF',
+  'SQLite',
   'HTML/CSS',
-  'React',
   'Astro',
-  'Docker',
-  'Linux',
+  'Tailwind CSS',
+  'Git',
 ];

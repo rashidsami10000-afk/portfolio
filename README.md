@@ -116,12 +116,15 @@ Do not commit that pin — the repository itself stays on Astro 7.
 ## How to edit content
 
 - **Add a project:** create a new `.md` file in `src/content/projects/`. Required
-  frontmatter: `title`, `summary`, `tech`, `image`, `code`, `demo`, `paper`, `slug`
-  — plus optional `imageAlt`, `imageCredit`, `imageCreditUrl`. The file name becomes
-  the URL (`spam-filter.md` → `/portfolio/projects/spam-filter/`).
+  frontmatter: `title`, `summary`, `year`, `role`, `tech`, `slug`. Optional: `image`,
+  `imageAlt`, `imageCredit`, `imageCreditUrl`, `code`, `demo`, `report`, `figures`.
+  Nothing renders for fields you leave out, so a project is never forced to carry a
+  link it does not have. Write the case study as the Markdown body. The file name
+  becomes the URL (`lawyer-case-manager.md` → `/portfolio/projects/lawyer-case-manager/`).
 - **Project images:** stored in `public/images/projects/` and referenced as
-  `/images/projects/<name>.jpg`. The current images are free-to-use Unsplash photos,
-  credited on each project page.
+  `/images/projects/<name>`. They are real artefacts — a report screenshot, a schema
+  diagram, a site capture — not stock photography. Use 16:9 at 1600×900. Evidence
+  charts go in `figures` (with a caption) and render below the case study body.
 - **Homepage copy:** `src/pages/index.astro` (headline, approach statement, services,
   stack marquee, about teaser).
 - **Change the bio:** `src/pages/about.astro`.

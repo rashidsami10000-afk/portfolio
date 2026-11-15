@@ -19,8 +19,8 @@ export const contact = {
 export const summary =
   'Artificial Intelligence undergraduate who builds machine-learning systems end to end: ' +
   'the models, the pipelines that feed them, and the interfaces people use to run them. ' +
-  'Works mainly in Python and C++, with project experience in scikit-learn, Apache Kafka, ' +
-  'and full-stack web development.';
+  'Works mainly in Python and C++, with project experience in scikit-learn, pandas, SQL, ' +
+  'and front-end development.';
 
 export const education = [
   {
@@ -35,42 +35,35 @@ export const education = [
 
 export const projects = [
   {
-    name: 'AI Spam Filter',
-    tech: 'Python · scikit-learn · FastAPI',
+    name: 'Refresh Opportunity Model — FlyRank',
+    tech: 'Python · pandas · scikit-learn',
     points: [
-      'Built and evaluated a text-classification model that separates spam from legitimate email at 98% accuracy.',
-      'Served predictions through a FastAPI endpoint so other applications can call the model directly.',
+      'Built a page-month panel of 101,441 pages from ~79M rows of production search data and ranked which pages need review first.',
+      'Shipped a transparent hand rule at P@50 0.92 against a 0.48 base rate; it matched a cross-validated logistic regression (0.952 ± 0.033), so the simpler model went live.',
+      'Validated with client-grouped splits and a planted-leak harness that caught a feature inflating P@50 to 1.0.',
     ],
   },
   {
-    name: 'Real-Time Spam Detection',
-    tech: 'Python · Apache Kafka · Spark Streaming',
+    name: 'Lawyer Case Manager',
+    tech: 'C# · .NET 8 · WPF · SQLite',
     points: [
-      'Moved spam scoring from batch to streaming: incoming mail is published to a Kafka topic and classified as it arrives.',
-      'Used Spark Streaming to consume the topic and score messages without a batch delay.',
+      'Offline Windows application replacing a legal paper notebook: cases, clients, notes timeline, linked documents and a court calendar.',
+      'Designed a four-table SQLite schema with enforced foreign keys and cascade rules, behind roughly 550 lines of data access.',
     ],
   },
   {
-    name: 'IoT Home Automation',
-    tech: 'Node.js · MQTT · React · Raspberry Pi',
-    points: [
-      'Connected Raspberry Pi devices over MQTT with a React dashboard for control and live device status.',
-      'Owned the path from device messaging through to the interface used to operate it.',
-    ],
-  },
-  {
-    name: 'Portfolio Website',
+    name: 'Portfolio & Design System',
     tech: 'Astro · TypeScript · Tailwind CSS',
     points: [
-      'Designed and built a static portfolio with a custom editorial design system and self-hosted webfonts.',
-      'Automated builds and deployment to GitHub Pages with GitHub Actions.',
+      'Custom editorial design system with self-hosted webfonts, a typed content collection and static deployment to GitHub Pages.',
+      'Generates the résumé PDF from one data file, so the web résumé, print sheet and download stay in sync.',
     ],
   },
 ];
 
 export const additional = [
-  'Contributes to open-source projects and follows applied machine-learning research to stay current.',
-  'Helps newer developers get started with programming fundamentals.',
+  'Ships personal projects end to end: data preparation, model evaluation, interface and deployment.',
+  'Interested in ranking and retrieval systems, and in keeping model output reviewable by humans.',
 ];
 
 /** Label for the "last updated" note shown on the web resume page. */

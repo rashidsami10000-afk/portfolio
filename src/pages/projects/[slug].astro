@@ -1,6 +1,6 @@
 ---
 // src/pages/projects/[slug].astro
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../components/Layout.astro';
 import MicroLabel from '../../components/MicroLabel.astro';
 import { withBase } from '../../utils/paths';
@@ -14,13 +14,13 @@ export const getStaticPaths = async () => {
 };
 
 const { project, next } = Astro.props;
-const image = withBase(project.data.image);
+const { Content } = await render(project);
 
 const links = [
   { label: 'Source code', href: project.data.code },
   { label: 'Live demo', href: project.data.demo },
-  { label: 'Paper', href: project.data.paper },
-];
+  { label: 'Write-up', href: project.data.report },
+].filter((link) => Boolean(link.href));
 ---
 <Layout title={`${project.data.title} — Rashid Ali`} description={project.data.summary}>
   <section class="page-hero page-hero--dark grain" style="position:relative;overflow:hidden">
@@ -39,34 +39,40 @@ const links = [
       <p class="lede" style="margin-top:var(--space-sm); --d:1" data-reveal>
         {project.data.summary}
       </p>
+
+      <p class="mono muted" style="margin-top:1.25rem" data-reveal>
+        {project.data.role} · {project.data.year}
+      </p>
     </div>
   </section>
 
   <section class="section" style="padding-top:0">
     <div class="shell">
-      <figure class="case-media">
-        <img
-          src={image}
-          alt={project.data.imageAlt ?? `Preview image for ${project.data.title}`}
-          width="1600"
-          height="900"
-          loading="eager"
-          decoding="async"
-        />
-        {project.data.imageCredit && (
-          <figcaption class="case-credit">
-            Photo by{' '}
-            {project.data.imageCreditUrl ? (
-              <a href={project.data.imageCreditUrl} target="_blank" rel="noopener noreferrer">
-                {project.data.imageCredit}
-              </a>
-            ) : (
-              project.data.imageCredit
-            )}{' '}
-            on Unsplash
-          </figcaption>
-        )}
-      </figure>
+      {project.data.image && (
+        <figure class="case-media">
+          <img
+            src={withBase(project.data.image)}
+            alt={project.data.imageAlt ?? `Preview image for ${project.data.title}`}
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
+          />
+          {project.data.imageCredit && (
+            <figcaption class="case-credit">
+              Photo by{' '}
+              {project.data.imageCreditUrl ? (
+                <a href={project.data.imageCreditUrl} target="_blank" rel="noopener noreferrer">
+                  {project.data.imageCredit}
+                </a>
+              ) : (
+                project.data.imageCredit
+              )}{' '}
+              on Unsplash
+            </figcaption>
+          )}
+        </figure>
+      )}
 
       <div class="case-grid">
         <div class="case-block">
@@ -74,20 +80,44 @@ const links = [
           <p class="copy">{project.data.tech}</p>
         </div>
 
-        <div class="case-block">
-          <h2 class="case-block__title">Links</h2>
-          <ul class="case-links">
-            {links.map((link) => (
-              <li>
-                <a href={link.href} target="_blank" rel="noopener noreferrer">
-                  <span>{link.label}</span>
-                  <span aria-hidden="true">&#8599;</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {links.length > 0 && (
+          <div class="case-block">
+            <h2 class="case-block__title">Links</h2>
+            <ul class="case-links">
+              {links.map((link) => (
+                <li>
+                  <a href={link.href} target="_blank" rel="noopener noreferrer">
+                    <span>{link.label}</span>
+                    <span aria-hidden="true">&#8599;</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
+
+      <div class="case-body">
+        <Content />
+      </div>
+
+      {project.data.figures && project.data.figures.length > 0 && (
+        <div class="case-figures">
+          {project.data.figures.map((figure) => (
+            <figure class="case-figure">
+              <img
+                src={withBase(figure.src)}
+                alt={figure.alt}
+                width="1050"
+                height="600"
+                loading="lazy"
+                decoding="async"
+              />
+              {figure.caption && <figcaption>{figure.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      )}
 
       <a class="next-project" href={withBase(`/projects/${next.id}`)}>
         <MicroLabel text="Next project" />
