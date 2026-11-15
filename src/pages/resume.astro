@@ -4,6 +4,7 @@ import Layout from '../components/Layout.astro';
 import MicroLabel from '../components/MicroLabel.astro';
 import { withBase } from '../utils/paths';
 import { skillGroups } from '../data/skills';
+import { updated } from '../data/resume';
 
 const snapshot = [
   { label: 'Education', value: 'BS Artificial Intelligence (in progress)' },
@@ -18,18 +19,24 @@ const snapshot = [
     <div class="shell">
       <div class="hero__top">
         <MicroLabel text="Resume" />
-        <span class="mono muted">Updated 2026</span>
+        <span class="mono muted">Updated {updated}</span>
       </div>
 
       <h1 class="display-1 page-hero__title" data-reveal>Rashid Ali</h1>
 
       <div class="page-hero__row" style="margin-top:var(--space-sm)">
         <p class="lede" data-reveal>
-          ML engineer and researcher. The full resume is available as a PDF.
+          Artificial Intelligence undergraduate and ML engineer. The full resume is
+          available as a PDF.
         </p>
-        <a class="btn btn--solid" href={withBase('/assets/resume.pdf')} download>
-          Download PDF <span class="btn__arrow" aria-hidden="true">&#8595;</span>
-        </a>
+        <div class="resume-actions">
+          <a class="btn btn--solid" href={withBase('/assets/resume.pdf')} download>
+            Download PDF <span class="btn__arrow" aria-hidden="true">&#8595;</span>
+          </a>
+          <a class="text-link" href={withBase('/resume/print/')}>
+            Web version <span aria-hidden="true">&#8599;</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>

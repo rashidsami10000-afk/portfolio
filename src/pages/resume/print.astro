@@ -1,0 +1,373 @@
+---
+// src/pages/resume/print.astro
+// Print-optimised A4 resume. `npm run resume` renders this page to public/assets/resume.pdf.
+import { contact, summary, education, projects, additional, updated } from '../../data/resume';
+import { skillGroups } from '../../data/skills';
+
+const links = [
+  contact.email && { label: contact.email, href: `mailto:${contact.email}` },
+  contact.phone && { label: contact.phone, href: `tel:${contact.phone.replace(/[^\d+]/g, '')}` },
+  contact.location && { label: contact.location },
+  contact.linkedin && { label: contact.linkedin, href: `https://www.linkedin.com/${contact.linkedin}` },
+  contact.github && { label: `github.com/${contact.github}`, href: `https://github.com/${contact.github}` },
+  contact.website && { label: contact.website, href: `https://${contact.website}` },
+].filter(Boolean) as { label: string; href?: string }[];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg" />
+    <title>{contact.name} — Resume</title>
+    <meta name="description" content={`Resume of ${contact.name}, ${contact.headline}.`} />
+    <style is:global>
+      :root {
+        --sans: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+        --ink: #1a1c1c;
+        --ink-soft: #3a3a37;
+        --muted: #6f6a61;
+        --rule: #d8d0c2;
+        --marker: #b9b2a5;
+      }
+
+      @font-face {
+        font-family: 'Inter Tight';
+        src: url('/portfolio/fonts/inter-tight-latin.woff2') format('woff2');
+        font-weight: 400 700;
+        font-style: normal;
+        font-display: block;
+      }
+
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('/portfolio/fonts/jetbrains-mono-latin.woff2') format('woff2');
+        font-weight: 400 500;
+        font-style: normal;
+        font-display: block;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        margin: 0;
+        background: #fff;
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 10pt;
+        line-height: 1.44;
+        letter-spacing: -0.005em;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .sheet {
+        padding: 14mm 14mm 12mm;
+      }
+
+      @media screen {
+        body {
+          background: #e9e3d8;
+          padding: 28px 16px 48px;
+        }
+
+        .sheet {
+          width: 210mm;
+          min-height: 297mm;
+          margin: 0 auto;
+          background: #fff;
+          box-shadow: 0 10px 44px rgb(0 0 0 / 0.16);
+        }
+      }
+
+      @media print {
+        .sheet {
+          width: auto;
+          min-height: 0;
+        }
+      }
+
+      /* ---------- header ---------- */
+
+      .name {
+        margin: 0;
+        font-size: 32pt;
+        font-weight: 600;
+        line-height: 0.94;
+        letter-spacing: -0.035em;
+        text-transform: uppercase;
+      }
+
+      .headline {
+        margin: 7pt 0 0;
+        font-family: var(--mono);
+        font-size: 8.2pt;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+      }
+
+      .specialty {
+        margin: 2.5pt 0 0;
+        font-family: var(--mono);
+        font-size: 7.6pt;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2pt 10pt;
+        margin: 9pt 0 0;
+        padding: 0;
+        list-style: none;
+        font-family: var(--mono);
+        font-size: 8pt;
+        color: var(--ink-soft);
+      }
+
+      .contact a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ---------- sections ---------- */
+
+      section {
+        margin-top: 15pt;
+      }
+
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 7pt;
+        margin: 0 0 7pt;
+        font-family: var(--mono);
+        font-size: 7pt;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      h2::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .summary {
+        max-width: 168mm;
+      }
+
+      /* ---------- entries ---------- */
+
+      .entry + .entry {
+        margin-top: 6pt;
+      }
+
+      .entry-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10pt;
+      }
+
+      .entry-title {
+        font-size: 10pt;
+        font-weight: 600;
+        letter-spacing: -0.012em;
+      }
+
+      .entry-meta {
+        font-family: var(--mono);
+        font-size: 7.6pt;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .entry-detail {
+        margin-top: 1.5pt;
+        color: var(--ink-soft);
+      }
+
+      .coursework {
+        margin-top: 1.5pt;
+        font-size: 9pt;
+        color: var(--muted);
+      }
+
+      /* ---------- skills ---------- */
+
+      .skills {
+        display: grid;
+        grid-template-columns: 26mm 1fr;
+        gap: 3.4pt 8pt;
+        margin: 0;
+      }
+
+      .skills dt {
+        padding-top: 1.4pt;
+        font-family: var(--mono);
+        font-size: 7.4pt;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .skills dd {
+        margin: 0;
+      }
+
+      /* ---------- lists ---------- */
+
+      .points {
+        margin: 3pt 0 0;
+        padding-left: 4.6mm;
+        list-style: none;
+      }
+
+      .points li {
+        position: relative;
+      }
+
+      .points li + li {
+        margin-top: 1.6pt;
+      }
+
+      .points li::before {
+        content: '–';
+        position: absolute;
+        left: -4.6mm;
+        color: var(--marker);
+      }
+
+      .project + .project {
+        margin-top: 8pt;
+      }
+
+      .project h3 {
+        margin: 0;
+        font-size: 10pt;
+        font-weight: 600;
+        letter-spacing: -0.012em;
+      }
+
+      .tech {
+        font-family: var(--mono);
+        font-size: 7.4pt;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .updated {
+        margin-top: 12pt;
+        font-family: var(--mono);
+        font-size: 7pt;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="sheet">
+      <header>
+        <h1 class="name">{contact.name}</h1>
+        <p class="headline">{contact.headline}</p>
+        <p class="specialty">{contact.specialty}</p>
+
+        <ul class="contact">
+          {links.map((link) => (
+            <li>
+              {link.href ? <a href={link.href}>{link.label}</a> : link.label}
+            </li>
+          ))}
+        </ul>
+      </header>
+
+      <section aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Summary</h2>
+        <p class="summary">{summary}</p>
+      </section>
+
+      <section aria-labelledby="education-heading">
+        <h2 id="education-heading">Education</h2>
+        {education.map((item) => (
+          <div class="entry">
+            <div class="entry-head">
+              <span class="entry-title">
+                {item.degree}{item.school && <span> — {item.school}</span>}
+              </span>
+              {item.period && <span class="entry-meta">{item.period}</span>}
+            </div>
+            {item.detail && <p class="entry-detail">{item.detail}</p>}
+            {item.coursework && (
+              <p class="coursework">Coursework: {item.coursework}</p>
+            )}
+          </div>
+        ))}
+      </section>
+
+      <section aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Technical Skills</h2>
+        <dl class="skills">
+          {skillGroups.map((group) => (
+            <>
+              <dt>{group.label}</dt>
+              <dd>{group.value}</dd>
+            </>
+          ))}
+        </dl>
+      </section>
+
+      <section aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Selected Projects</h2>
+        {projects.map((project) => (
+          <article class="project">
+            <div class="entry-head">
+              <h3>{project.name}</h3>
+              <span class="tech">{project.tech}</span>
+            </div>
+            <ul class="points">
+              {project.points.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </section>
+
+      <section aria-labelledby="additional-heading">
+        <h2 id="additional-heading">Additional</h2>
+        <ul class="points" style="margin-top:0">
+          {additional.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <p class="updated">Updated {updated}</p>
+    </main>
+  </body>
+</html>

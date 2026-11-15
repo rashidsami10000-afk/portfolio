@@ -8,7 +8,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "check:links": "node scripts/check-links.cjs",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "resume": "node scripts/build-resume.mjs"
   },
   "keywords": [],
   "type": "commonjs",

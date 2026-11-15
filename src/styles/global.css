@@ -1313,6 +1313,20 @@ html.menu-open .header-pill {
   width: fit-content;
 }
 
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  justify-self: end;
+}
+
+@media (max-width: 899px) {
+  .resume-actions {
+    justify-self: start;
+  }
+}
+
 /* ------------------------------------------------------------------ *
  *  Project detail
  * ------------------------------------------------------------------ */

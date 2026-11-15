@@ -128,8 +128,12 @@ Do not commit that pin — the repository itself stays on Astro 7.
   About page crops it with `object-position` and applies a warm monochrome treatment).
 - **Skills and stack:** `src/data/skills.ts` drives the About Toolkit, the Resume
   “Technical skills” section, and the homepage stack marquee.
-- **Swap the resume:** replace `public/assets/resume.pdf` with your own PDF (keep the
-  same file name).
+- **Resume content:** `src/data/resume.ts` (contact, summary, education, projects,
+  extras). It renders at `/resume/print/` and is also the source for the PDF.
+- **Regenerate the resume PDF:** `npm run resume` builds the site, prints
+  `/resume/print/` with headless Edge/Chrome, and writes `public/assets/resume.pdf`.
+  Commit the PDF — GitHub Actions only runs `astro build`. Set `CHROME_PATH` if the
+  browser is not found automatically.
 - **Contact details:** `src/pages/contact.astro` and the email/GitHub/LinkedIn
   constants in `src/components/Header.astro` and `src/components/Footer.astro`.
 - **Site URL / base path:** `site` and `base` in `astro.config.mjs`. If the base path
@@ -175,5 +179,6 @@ can be ignored.
 ## Remaining placeholders
 
 - Project code/demo/paper links (`*.rashid.dev` demo URLs are samples).
-- `public/assets/resume.pdf` is a placeholder PDF.
 - `public/og-image.svg` social preview image.
+- Resume details still to fill in `src/data/resume.ts`: university name, location, phone,
+  LinkedIn.
