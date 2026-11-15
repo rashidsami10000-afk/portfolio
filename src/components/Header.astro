@@ -12,6 +12,10 @@ const links = [
 const email = 'rashidsami10000@gmail.com';
 const github = 'https://github.com/rashidsami10000-afk';
 const linkedin = 'https://www.linkedin.com/in/rashid-ali-9445903a1/';
+
+// The availability badge is an entry-point flourish: home page only.
+const isHome =
+  Astro.url.pathname.replace(/\/+$/, '') === withBase('/').replace(/\/+$/, '');
 ---
 <header class="site-header">
   <div class="header-pill">
@@ -24,10 +28,12 @@ const linkedin = 'https://www.linkedin.com/in/rashid-ali-9445903a1/';
       <span class="logo__name">Rashid Ali</span>
     </a>
 
-    <span class="status">
-      <span class="status__dot" aria-hidden="true"></span>
-      Open to work
-    </span>
+    {isHome && (
+      <span class="status">
+        <span class="status__dot" aria-hidden="true"></span>
+        Open to work
+      </span>
+    )}
 
     <button
       class="menu-btn"
