@@ -1,7 +1,8 @@
 # Personal Portfolio — Rashid Ali
 
-Editorial-style portfolio for an ML engineer and researcher. Built with Astro and
-Tailwind CSS, deployed as a static site to GitHub Pages.
+Editorial-style portfolio for an Artificial Intelligence undergraduate building
+machine learning systems. Built with Astro and Tailwind CSS, deployed as a static
+site to GitHub Pages.
 
 **Live:** https://rashidsami10000-afk.github.io/portfolio/
 

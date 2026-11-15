@@ -10,7 +10,7 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = 'Portfolio of Rashid Ali, an ML engineer and researcher building practical, research-informed AI systems.' } = Astro.props;
+const { title, description = 'Portfolio of Rashid Ali, an Artificial Intelligence undergraduate building machine learning systems end to end.' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(withBase('/og-image.svg'), Astro.site).href;
 ---
