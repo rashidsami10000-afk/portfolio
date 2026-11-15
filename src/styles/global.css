@@ -1753,18 +1753,6 @@ html.menu-open .header-pill {
   padding-left: 1.1rem;
 }
 
-/* Scroll progress */
-.scroll-progress {
-  position: fixed;
-  inset: 0 0 auto;
-  z-index: 90;
-  height: 2px;
-  transform-origin: left;
-  transform: scaleX(0);
-  background-color: var(--color-lime);
-  pointer-events: none;
-}
-
 /* Hero portrait / image treatment */
 .media-frame {
   position: relative;

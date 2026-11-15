@@ -67,10 +67,10 @@ unused; it is kept for reference.
 
 ### Motion and accessibility
 
-The only client-side JavaScript lives inline in `Layout.astro` and does five small
+The only client-side JavaScript lives inline in `Layout.astro` and does four small
 things: open/close the menu (with `inert`, ESC, and focus restore), reveal sections
-with `IntersectionObserver`, update the scroll-progress bar, move the cursor preview,
-and tick the local clock. No animation library is used.
+with `IntersectionObserver`, move the cursor preview, and tick the local clock. No
+animation library is used.
 
 - Skip link, visible focus rings, and logical landmarks are in place.
 - The menu is keyboard operable and restores focus on close.
